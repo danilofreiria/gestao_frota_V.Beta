@@ -1,8 +1,9 @@
 const pool = require('../db');
 
-// Criar um motorista
+
 exports.addDriver = async (req, res) => {
     const { nome, cpf, cnh, validade_cnh, categoria_cnh, telefone } = req.body;
+    console.log(req.body);
     try {
         const newDriver = await pool.query(
             'INSERT INTO motoristas (nome, cpf, cnh, validade_cnh, categoria_cnh, telefone) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
@@ -14,7 +15,6 @@ exports.addDriver = async (req, res) => {
     }
 };
 
-// Listar todos os motoristas
 exports.getDrivers = async (req, res) => {
     try {
         const motoristas = await pool.query('SELECT * FROM motoristas');
@@ -24,7 +24,6 @@ exports.getDrivers = async (req, res) => {
     }
 };
 
-// Buscar motorista por ID
 exports.searchDriver = async (req, res) => {
     const { id } = req.params;
     try {
@@ -38,7 +37,6 @@ exports.searchDriver = async (req, res) => {
     }
 };
 
-// Atualizar motorista
 exports.updateDriver = async (req, res) => {
     const { id } = req.params;
     const { nome, cpf, cnh, validade_cnh, categoria_cnh, telefone } = req.body;
@@ -56,7 +54,6 @@ exports.updateDriver = async (req, res) => {
     }
 };
 
-// Deletar motorista
 exports.deleteDriver = async (req, res) => {
     const { id } = req.params;
     try {
